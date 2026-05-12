@@ -1,0 +1,37 @@
+{
+  "name": "bfp-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Docker handles Python deps'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check:supabase": "node scripts/check_supabase_ready.js",
+    "migrate:supabase": "node scripts/migrate_postgres_to_supabase.js",
+    "import:archive:supabase": "node scripts/import_archive_exports_to_supabase.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "bcrypt": "^6.0.0",
+    "chart.js": "^4.5.1",
+    "chartjs-node-canvas": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "firebase-admin": "^12.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-cron": "^4.2.1",
+    "node-fetch": "^2.7.0",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "string-similarity": "^4.0.4",
+    "uuid": "^9.0.1"
+  }
+}

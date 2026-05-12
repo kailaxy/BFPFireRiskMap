@@ -1,0 +1,219 @@
+/* CSS Fire Animation for Emergency Markers */
+
+.fireplace {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.fireplace::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -10px;
+  background: radial-gradient(circle, rgba(255,0,0,0.3) 0%, rgba(255,69,0,0.2) 40%, transparent 70%);
+  border-radius: 50%;
+  z-index: -2;
+  animation: fireGlow 1.5s ease-in-out infinite alternate;
+}
+
+.fireplace__flame, 
+.fireplace__flame_big {
+  height: 32px;
+  width: 22px;
+  background: linear-gradient(0deg, rgba(220,0,0,1) 0%, rgba(255,0,0,1) 8%, rgba(255,69,0,1) 15%, rgba(237,100,52,1) 30%, rgba(237,174,52,1) 45%, rgba(250,71,8,1) 65%, rgba(255,20,0,0.9) 85%, rgba(200,0,0,0.8) 95%);
+  position: relative;
+  margin-bottom: -3px;
+  z-index: 3;
+  opacity: 0.8;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+
+.fireplace__flame {
+  width: 42px;
+  margin-left: 1px;
+  animation: burn 1.5s linear forwards infinite;
+}
+
+.fireplace__flame_big {
+  margin-bottom: -1px;
+  z-index: -1;
+  opacity: 1;
+  animation: burn_alt 2.5s linear forwards infinite;
+}
+
+.fireplace__spark {
+  position: absolute;
+  height: 2px;
+  width: 2px;
+  border-radius: 1px;
+  top: 0; 
+  left: 0;
+  filter: blur(0.5px);
+  background: yellow;
+  z-index: 10;
+  opacity: 0;
+}
+
+/* Spark animations */
+.fireplace main:nth-of-type(1) {
+  animation: spark_1 1s forwards infinite;
+}
+
+.fireplace main:nth-of-type(2) {
+  animation: spark_2 1s 0.75s forwards infinite;
+}
+
+.fireplace main:nth-of-type(3) {
+  animation: spark_3 1s 0.25s forwards infinite;
+}
+
+.fireplace main:nth-of-type(4) {
+  animation: spark_4 1s 0.5s forwards infinite;
+}
+
+.blur {
+  filter: blur(0.5px);
+}
+
+.blur.fix {
+  position: absolute;
+}
+
+/* Different intensity levels based on alarm level */
+.fireplace.fire-normal .fireplace__flame {
+  animation-duration: 1.5s;
+}
+
+.fireplace.fire-normal .fireplace__flame_big {
+  animation-duration: 2.5s;
+}
+
+.fireplace.fire-medium .fireplace__flame {
+  animation-duration: 1.2s;
+}
+
+.fireplace.fire-medium .fireplace__flame_big {
+  animation-duration: 2s;
+}
+
+.fireplace.fire-high .fireplace__flame {
+  animation-duration: 0.9s;
+}
+
+.fireplace.fire-high .fireplace__flame_big {
+  animation-duration: 1.5s;
+}
+
+.fireplace.fire-urgent .fireplace__flame {
+  animation-duration: 0.6s;
+}
+
+.fireplace.fire-urgent .fireplace__flame_big {
+  animation-duration: 1s;
+}
+
+.fireplace.fire-urgent .fireplace__flame,
+.fireplace.fire-urgent .fireplace__flame_big {
+  background: linear-gradient(0deg, rgba(255,0,0,1) 10%, rgba(255,69,0,1) 15%, rgba(255,100,0,1) 50%, rgba(255,0,0,1) 59%);
+}
+
+/* Fire burn animations */
+@keyframes burn {
+  0% {
+    clip-path: polygon(48% 97%, 42% 97%, 37% 93%, 31% 92%, 28% 88%, 26% 81%, 29% 84%, 34% 84%, 33% 79%, 30% 74%, 31% 67%, 34% 57%, 34% 65%, 39% 71%, 43% 65%, 43% 55%, 40% 45%, 48% 59%, 49% 69%, 51% 76%, 55% 71%, 54% 65%, 54% 58%, 58% 64%, 61% 72%, 57% 92%, 61% 97%, 64% 98%, 66% 95%, 64% 93%, 57% 96%, 54% 93%, 48% 97%);
+  }
+  25% {
+    clip-path: polygon(49% 97%, 41% 97%, 35% 92%, 33% 86%, 34% 80%, 30% 74%, 34% 77%, 38% 81%, 38% 78%, 36% 72%, 35% 67%, 37% 61%, 37% 54%, 39% 61%, 39% 67%, 43% 63%, 43% 58%, 45% 44%, 44% 58%, 48% 66%, 51% 67%, 51% 59%, 54% 67%, 56% 72%, 57% 79%, 59% 77%, 60% 71%, 61% 77%, 61% 83%, 60% 89%, 61% 94%, 57% 97%, 52% 98%);
+  }
+  50% {
+    clip-path: polygon(46% 97%, 39% 96%, 35% 89%, 36% 84%, 34% 77%, 30% 73%, 30% 65%, 30% 70%, 35% 75%, 38% 68%, 37% 61%, 40% 53%, 41% 42%, 42% 56%, 44% 65%, 50% 67%, 51% 57%, 53% 68%, 52% 74%, 51% 81%, 55% 78%, 57% 72%, 58% 79%, 57% 85%, 55% 88%, 60% 87%, 63% 82%, 63% 89%, 59% 94%, 55% 98%, 51% 92%, 50% 99%, 45% 96%);
+  }
+  75% {
+    clip-path: polygon(45% 97%, 38% 97%, 33% 93%, 31% 87%, 31% 81%, 29% 76%, 25% 69%, 29% 61%, 30% 69%, 35% 71%, 35% 62%, 34% 54%, 38% 45%, 38% 54%, 43% 62%, 47% 57%, 48% 49%, 44% 38%, 50% 46%, 53% 60%, 54% 71%, 53% 79%, 59% 76%, 60% 66%, 64% 73%, 63% 79%, 59% 85%, 64% 90%, 68% 84%, 68% 92%, 60% 97%, 53% 98%, 48% 99%);
+  }
+  100% {
+    clip-path: polygon(48% 97%, 42% 97%, 37% 93%, 31% 92%, 28% 88%, 26% 81%, 29% 84%, 34% 84%, 33% 79%, 30% 74%, 31% 67%, 34% 57%, 34% 65%, 39% 71%, 43% 65%, 43% 55%, 40% 45%, 48% 59%, 49% 69%, 51% 76%, 55% 71%, 54% 65%, 54% 58%, 58% 64%, 61% 72%, 57% 92%, 61% 97%, 64% 98%, 66% 95%, 64% 93%, 57% 96%, 54% 93%, 48% 97%);
+  }
+}
+
+@keyframes burn_alt {
+  0%, 100% {
+    clip-path: polygon(48% 97%, 43% 97%, 38% 97%, 34% 94%, 33% 91%, 32% 87%, 29% 83%, 26% 80%, 21% 75%, 20% 71%, 20% 66%, 20% 59%, 20% 65%, 24% 68%, 28% 67%, 28% 62%, 25% 60%, 21% 52%, 21% 43%, 24% 32%, 23% 39%, 24% 46%, 28% 48%, 33% 44%, 33% 39%, 31% 32%, 28% 23%, 30% 14%, 31% 22%, 35% 28%, 39% 28%, 41% 25%, 40% 21%, 39% 13%, 41% 6%, 42% 15%, 45% 23%, 49% 25%, 52% 22%, 51% 13%, 54% 21%, 56% 29%, 53% 35%, 50% 41%, 53% 46%, 58% 46%, 60% 39%, 60% 34%, 64% 39%, 65% 45%, 63% 51%, 61% 56%, 64% 61%, 68% 59%, 71% 55%, 73% 48%, 73% 40%, 76% 48%, 77% 56%, 76% 62%, 74% 66%, 69% 71%, 71% 74%, 75% 74%, 79% 71%, 81% 65%, 82% 72%, 81% 77%, 77% 82%, 73% 86%, 73% 89%, 78% 89%, 82% 85%, 81% 91%, 78% 95%, 72% 97%, 65% 98%, 59% 98%, 53% 99%, 47% 97%);
+  }
+  10% {
+    clip-path: polygon(44% 100%, 39% 100%, 35% 99%, 32% 99%, 32% 99%, 27% 97%, 24% 95%, 21% 92%, 19% 89%, 18% 86%, 16% 83%, 16% 79%, 17% 73%, 18% 68%, 17% 64%, 16% 64%, 12% 60%, 13% 52%, 16% 45%, 18% 40%, 17% 47%, 17% 53%, 21% 57%, 26% 59%, 29% 56%, 30% 48%, 28% 45%, 25% 38%, 25% 33%, 27% 23%, 29% 15%, 28% 23%, 29% 31%, 32% 38%, 36% 49%, 39% 52%, 40% 59%, 41% 64%, 47% 66%, 52% 64%, 50% 56%, 47% 48%, 47% 42%, 51% 34%, 53% 29%, 51% 40%, 53% 46%, 55% 52%, 59% 54%, 62% 53%, 64% 49%, 63% 43%, 67% 46%, 68% 54%, 67% 60%, 64% 65%, 63% 71%, 66% 75%, 71% 77%, 75% 75%, 76% 68%, 78% 72%, 79% 76%, 77% 80%, 73% 82%, 72% 86%, 77% 88%, 82% 87%, 84% 81%, 84% 88%, 83% 92%, 77% 96%, 73% 99%, 68% 99%, 62% 98%, 57% 100%, 53% 100%, 53% 95%, 50% 94%, 44% 93%);
+  }
+  20% {
+    clip-path: polygon(44% 99%, 41% 99%, 35% 98%, 29% 97%, 24% 93%, 21% 86%, 20% 80%, 16% 74%, 16% 64%, 16% 71%, 21% 75%, 25% 72%, 25% 65%, 22% 59%, 19% 53%, 19% 44%, 21% 52%, 25% 59%, 29% 57%, 29% 51%, 26% 44%, 26% 38%, 30% 32%, 31% 26%, 30% 18%, 34% 25%, 33% 35%, 33% 44%, 34% 50%, 39% 53%, 44% 52%, 45% 49%, 44% 44%, 42% 38%, 44% 33%, 48% 26%, 45% 35%, 47% 41%, 50% 44%, 51% 52%, 49% 60%, 48% 65%, 53% 69%, 58% 65%, 57% 59%, 58% 51%, 62% 41%, 66% 40%, 64% 47%, 61% 58%, 63% 66%, 66% 68%, 70% 67%, 72% 62%, 73% 57%, 71% 48%, 75% 53%, 79% 57%, 79% 64%, 76% 70%, 72% 75%, 70% 78%, 74% 80%, 78% 79%, 82% 76%, 84% 71%, 85% 66%, 84% 62%, 88% 67%, 89% 72%, 89% 79%, 87% 83%, 84% 89%, 81% 93%, 76% 97%, 69% 98%, 60% 99%, 54% 99%, 48% 100%, 45% 97%);
+  }
+  /* Continue with more keyframes for smooth animation */
+  50% {
+    clip-path: polygon(40% 99%, 35% 99%, 31% 98%, 25% 95%, 23% 92%, 21% 88%, 20% 83%, 21% 80%, 22% 76%, 21% 70%, 20% 68%, 18% 64%, 21% 68%, 23% 71%, 25% 75%, 26% 79%, 31% 84%, 31% 79%, 28% 69%, 23% 60%, 17% 53%, 19% 41%, 25% 31%, 24% 24%, 24% 19%, 26% 24%, 28% 30%, 26% 37%, 25% 44%, 28% 49%, 33% 50%, 39% 48%, 40% 43%, 39% 35%, 37% 29%, 42% 34%, 43% 40%, 44% 47%, 43% 53%, 45% 59%, 51% 60%, 53% 56%, 51% 49%, 51% 44%, 53% 36%, 55% 32%, 54% 22%, 57% 29%, 57% 44%, 56% 50%, 58% 56%, 62% 59%, 66% 59%, 68% 53%, 66% 45%, 65% 38%, 70% 44%, 71% 50%, 72% 55%, 71% 62%, 68% 66%, 65% 70%, 67% 74%, 72% 74%, 76% 71%, 78% 65%, 80% 68%, 81% 73%, 78% 81%, 76% 89%, 77% 93%, 75% 97%, 70% 98%, 67% 98%, 62% 98%, 58% 98%, 53% 99%, 50% 99%, 47% 99%, 45% 99%);
+  }
+}
+
+/* Spark animations - scaled down for map markers */
+@keyframes spark_1 {
+  0% {
+    opacity: 1;
+    left: 13px;
+    top: 26px;
+  }
+  100% {
+    top: 8px;
+    left: 14px;
+    opacity: 0;
+  }
+}
+
+@keyframes spark_2 {
+  0% {
+    opacity: 1;
+    left: 23px;
+    top: 26px;
+  }
+  100% {
+    top: 3px;
+    left: 19px;
+    opacity: 0;
+  }
+}@keyframes spark_3 {
+  0% {
+    opacity: 1;
+    left: 28px;
+    top: 26px;
+  }
+  100% {
+    top: 4px;
+    left: 21px;
+    opacity: 0;
+  }
+}@keyframes spark_4 {
+  0% {
+    opacity: 1;
+    left: 15px;
+    top: 26px;
+  }
+  100% {
+    top: 4px;
+    left: 5px;
+    opacity: 0;
+  }
+}
+
+@keyframes fireGlow {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}

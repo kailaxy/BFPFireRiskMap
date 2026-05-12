@@ -1,0 +1,14 @@
+<svg width="40" height="50" viewBox="0 0 40 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- Marker shape -->
+  <path d="M20 2C11.16 2 4 9.16 4 18c0 5.25 2.5 9.92 6.38 12.87L20 48l9.62-17.13C33.5 27.92 36 23.25 36 18c0-8.84-7.16-16-16-16z" fill="#FF4444" stroke="#CC0000" stroke-width="2"/>
+  
+  <!-- Fire icon -->
+  <g transform="translate(20, 18)">
+    <!-- Main flame -->
+    <path d="M0 10c-3-6 0-12 3-10 2 1 1 4 3 2 3-3 6 0 4 4-1 2-2 4-1 6 1 3-2 6-5 4-2-1-3-3-4-6z" fill="#FFF" opacity="0.9"/>
+    <!-- Inner flame -->
+    <path d="M0 8c-2-4 0-8 2-6 1 1 1 3 2 1 2-2 4 0 3 3-1 1-1 3-1 4 1 2-1 4-3 3-1-1-2-2-3-5z" fill="#FFD700" opacity="0.8"/>
+    <!-- Core flame -->
+    <path d="M0 6c-1-2 0-4 1-3 1 0 0 1 1 0 1-1 2 0 2 1 0 1 0 2 0 2 0 1-1 2-2 1-1 0-1-1-2-1z" fill="#FF6B35"/>
+  </g>
+</svg>

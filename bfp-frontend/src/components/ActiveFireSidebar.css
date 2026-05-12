@@ -1,0 +1,81 @@
+.afs-list-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+.afs-list-item .afs-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 4px;
+  transition: background-color 120ms ease-in-out;
+}
+.afs-list-item .afs-item-row:hover {
+  background-color: var(--accent-yellow, #facc15); /* fallback to a yellow */
+}
+.afs-item-title {
+  font-size: 13px;
+}
+.afs-item-sub {
+  font-size: 11px;
+  color: #666;
+}
+.hydrant-status svg { vertical-align: middle; display: inline-block; }
+.afs-expand {
+  overflow: hidden;
+  transition: max-height 220ms ease, opacity 180ms ease, padding 180ms ease;
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+}
+.afs-expand.open {
+  max-height: 240px; /* enough for content */
+  opacity: 1;
+  padding-top: 8px;
+}
+.afs-section-title {
+  font-size: 15px;
+  margin: 8px 0;
+}
+
+.sidebar .btn {
+  padding: 0.32rem 0.6rem;
+  font-size: 0.9rem;
+  min-width: 72px;
+  white-space: normal; /* allow wrapping so long labels don't overflow */
+}
+.sidebar .btn.primary {
+  background-color: var(--accent-yellow, #facc15);
+  color: #0b1220;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.sidebar .btn.primary:hover { background-color: #f2c200; }
+
+/* Back button styling inside nearby page */
+.sidebar .btn.back {
+  background-color: var(--accent-yellow, #facc15);
+  color: #0b1220;
+  padding: 0.28rem 0.5rem;
+  min-width: 40px;
+}
+.sidebar .btn.back svg { stroke: currentColor; }
+
+/* Prevent the sidebar from extending into the footer area. Keep it scrollable. */
+.sidebar {
+  /* Reserve space from the bottom (footer). Tweak this variable in global CSS if needed. */
+  --sidebar-bottom-offset: 220px;
+  box-sizing: border-box;
+  max-height: calc(100vh - var(--sidebar-bottom-offset));
+  overflow-y: auto;
+  padding-bottom: 12px; /* give breathing room above footer */
+}
+
+/* Keep header visible while scrolling the sidebar content */
+.sidebar-header {
+  position: sticky;
+  top: 0;
+  background: inherit;
+  z-index: 40;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}

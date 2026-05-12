@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Allow host to override API base at runtime -->
+    <meta name="api-base-url" content="https://bfp-backend.onrender.com" />
+    <!-- Runtime override script: ensures the app sees the hosted backend URL before the bundle runs -->
+    <script>
+      (function(){
+        try {
+          if (!window.__BFP_API_BASE_URL) {
+            var m = document.querySelector('meta[name="api-base-url"]');
+            if (m && m.content) window.__BFP_API_BASE_URL = m.content;
+            else window.__BFP_API_BASE_URL = 'https://bfp-backend.onrender.com';
+          }
+        } catch (e) {
+          // ignore
+        }
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

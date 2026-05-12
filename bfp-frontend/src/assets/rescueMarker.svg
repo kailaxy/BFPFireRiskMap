@@ -1,0 +1,12 @@
+<svg width="40" height="50" viewBox="0 0 40 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- Marker shape -->
+  <path d="M20 2C11.16 2 4 9.16 4 18c0 5.25 2.5 9.92 6.38 12.87L20 48l9.62-17.13C33.5 27.92 36 23.25 36 18c0-8.84-7.16-16-16-16z" fill="#0084FF" stroke="#0066CC" stroke-width="2"/>
+  
+  <!-- Medical cross icon -->
+  <g transform="translate(20, 18)">
+    <!-- Horizontal bar -->
+    <rect x="-8" y="-2" width="16" height="4" fill="#FFF" rx="1"/>
+    <!-- Vertical bar -->
+    <rect x="-2" y="-8" width="4" height="16" fill="#FFF" rx="1"/>
+  </g>
+</svg>

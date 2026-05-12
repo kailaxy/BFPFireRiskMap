@@ -1,0 +1,86 @@
+# Environment variables - NEVER commit real secrets
+.env
+.env.local
+.env.*.local
+.env.production
+.env.production.local
+
+# Dependencies - recreated from lock files
+node_modules/
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist-info/
+
+# Build outputs - regenerated during deployment
+dist/
+build/
+.next/
+out/
+.vite/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Testing and coverage
+coverage/
+.coverage
+.pytest_cache/
+.nyc_output/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Development
+.apm/
+.github/prompts/
+archive/
+scripts/
+*.code-workspace
+REBUILD_ROADMAP.md
+*.roadmap.md
+*.ROADMAP.md
+*.apm/
+
+# Firebase
+.firebase/
+firebase-debug.log
+
+# Supabase
+supabase/.temp/
+
+# OS files
+.DS_Store
+Thumbs.db
+.env.*.swp
+
+# Credentials and secrets
+serviceAccountKey.json
+*.pem
+*.key
+*.pfx
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+.tmp/
+
+# Client handoff hygiene
+.github/
+archive*/
+cleanup-*/

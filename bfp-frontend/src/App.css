@@ -1,0 +1,604 @@
+/* Modified root to take full screen width */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;  /* or remove if you want to preserve left alignment */
+}
+
+/* Existing CSS from your App.css */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* --- New CSS rules for your mapping application --- */
+
+/* Overall container for the app */
+.app-container, html, body, #root {
+  height: 100%;
+}
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Make a wrapper that holds header + main + footer so footer sits at bottom */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Header styling */
+.header {
+  background-color: var(--brand-dark);
+  color: var(--app-text);
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Footer styling */
+.footer {
+  background-color: var(--brand-dark);
+  color: var(--app-text);
+  text-align: center;
+  padding: 6px 8px; /* slightly narrower */
+  font-size: 12px;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+/* Main content container for the map */
+.main-content {
+  position: relative;
+  flex: 1 1 auto; /* allow main content to grow and let footer remain at bottom */
+  min-height: 0; /* allow children to set scroll inside flex item */
+  overflow: hidden;
+}
+
+/* Layers Control */
+.layers-control {
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
+  /* keep below sidebars and other UI */
+  z-index: 800;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+/* Fire Risk layer row - horizontal layout for layer button + legend */
+.layer-fire-risk-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: nowrap; /* Prevent wrapping on desktop */
+  position: relative; /* Establish positioning context for absolute legend */
+}
+
+/* Mobile responsive for layers control */
+@media (max-width: 768px) {
+  .layers-control {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .layer-fire-risk-row {
+    flex-direction: row; /* Keep horizontal layout for Fire Risk button + collapsed legend */
+    align-items: flex-end;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+}
+
+/* Ensure desktop layout is explicitly horizontal */
+@media (min-width: 769px) {
+  .layer-fire-risk-row {
+    flex-direction: row;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    gap: 12px; /* Restore desktop gap */
+  }
+}
+
+/* Stacked layer icons (bottom-left) */
+.layer-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.layer-stack-item {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.14);
+  cursor: pointer;
+}
+
+.layer-stack-item:focus {
+  outline: 3px solid rgba(100,108,255,0.18);
+}
+
+.layer-stack-item .layer-icon svg {
+  width: 22px;
+  height: 22px;
+  color: #8c9498; /* slightly darker default grey */
+  stroke-width: 2px; /* make strokes thicker by default */
+}
+
+/* tooltip that slides out to the right on hover/focus */
+.layer-tooltip {
+  position: absolute;
+  left: 54px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-8px);
+  background: white;
+  color: #222;
+  padding: 6px 10px;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 180ms ease;
+  transform-origin: left center;
+  font-size: 13px;
+}
+
+.layer-stack-item:hover .layer-tooltip,
+.layer-stack-item:focus .layer-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+  pointer-events: auto;
+}
+
+/* On/off color states */
+.layer-stack-item.off .layer-icon svg {
+  color: #8c9498;
+}
+.layer-stack-item.layer-hydrants.on .layer-icon svg {
+  color: var(--accent-yellow);
+  stroke-width: 2.6px;
+}
+.layer-stack-item.layer-boundaries.on .layer-icon svg {
+  color: var(--accent-blue);
+  stroke-width: 2.6px;
+}
+.layer-stack-item.layer-stations.on .layer-icon svg {
+  color: #4fb3ff;
+  stroke-width: 2.6px;
+}
+.layer-stack-item.layer-fire-risk.on .layer-icon svg {
+  color: #e74c3c;
+  stroke-width: 2.6px;
+}
+.layer-stack-item.layer-historical-fires.on .layer-icon svg {
+  color: #ff9800;
+  stroke-width: 2.6px;
+}
+
+/* Historical fires row layout */
+.layer-historical-fires-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.layer-historical-fires-row .filter-toggle-btn {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #ff9800;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-left: 4px;
+  padding: 0;
+  overflow: visible;
+}
+
+.layer-historical-fires-row .filter-toggle-btn:hover {
+  background: white;
+  border-color: #ff6f00;
+  box-shadow: 0 3px 10px rgba(255, 152, 0, 0.4);
+  transform: scale(1.08);
+}
+
+.layer-historical-fires-row .filter-toggle-btn svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.layers-control-dropdown {
+  margin-top: 8px;
+  background: white;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: dropdownAnim 0.3s ease-out forwards;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+/* Layer item icon buttons */
+.layers-control-dropdown .layer-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+.layers-control-dropdown .layer-item:hover {
+  background: rgba(0,0,0,0.03);
+}
+.layer-icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  color: #9aa0a6; /* default grey stroke via currentColor */
+}
+.layer-label {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Off state: muted grey */
+.layer-item.off .layer-icon svg {
+  color: #9aa0a6;
+  opacity: 0.9;
+}
+
+/* On state colors (use app palette) */
+.layer-item.layer-hydrants.on .layer-icon svg {
+  color: var(--accent-yellow);
+}
+.layer-item.layer-boundaries.on .layer-icon svg {
+  color: var(--accent-blue);
+}
+.layer-item.layer-stations.on .layer-icon svg {
+  color: #4fb3ff; /* a lighter blue for stations */
+}
+
+/* Make the icon stroke use currentColor */
+.layer-icon svg path,
+.layer-icon svg circle,
+.layer-icon svg rect {
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Sidebar */
+.sidebar {
+  position: absolute;
+  top: 70px; /* nudge down so it doesn't overlap the search bar */
+  left: 10px;
+  width: 350px; /* match .search-bar-container width */
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  /* ensure sidebars sit above layer controls and report buttons */
+  z-index: 1280; /* keep below search bar (1300) so search isn't covered */
+  animation: fadeInSlide 0.3s ease-out forwards;
+  color: #333;
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  /* Prevent overlapping footer: constrain height to viewport minus header/footer and let it scroll */
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  transition: transform 0.3s ease-out, width 0.3s ease-out;
+}
+
+/* Collapsed sidebar state */
+.sidebar.sidebar-collapsed {
+  width: 40px !important; /* Only a small vertical strip remains */
+  min-width: 40px !important;
+  max-width: 40px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  transition: width 0.3s ease-out;
+}
+
+.sidebar.sidebar-collapsed .sidebar-header {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.sidebar.sidebar-collapsed .sidebar-header h3 {
+  display: none !important;
+}
+
+.sidebar.sidebar-collapsed .sidebar-header-buttons {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  gap: 0 !important;
+}
+
+.sidebar.sidebar-collapsed .btn-close {
+  display: none !important;
+}
+
+.sidebar.sidebar-collapsed .btn-collapse {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  font-size: 18px !important;
+  color: #666 !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sidebar.sidebar-collapsed > div:not(.sidebar-header) {
+  display: none !important;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fire-risk-forecast {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: rgba(255, 246, 229, 0.9);
+  border-radius: 8px;
+  border: 1px solid #f39c12;
+}
+
+.fire-risk-forecast h4 {
+  margin: 0 0 8px 0;
+  color: #d68910;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.fire-risk-forecast p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.fire-risk-forecast .risk-flag {
+  margin: 8px 0 0 0;
+  color: #e67e22;
+  font-weight: bold;
+}
+
+.btn-collapse {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  line-height: 1;
+  min-width: 24px;
+  text-align: center;
+}
+
+.btn-collapse:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  line-height: 1;
+}
+
+.btn-close:hover {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #d73527;
+}
+
+.sidebar h3 {
+  margin: 0;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar p {
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+/* Search Bar */
+.search-bar-input {
+  position: relative;
+  width: 100%;
+  height: 45px;
+  padding: 6px 36px 6px 12px;   /* ← right padding now 36px to clear the 18px button + some breathing room */
+  font-size: 14px;
+  color: #1a1a1a;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  outline: none;
+  background: white;
+
+  /* add this so padding is included in the width */
+  box-sizing: border-box;
+  
+  /* optional: prevent very long text from wrapping or hiding */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+.search-bar-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transform: none;
+  width: 350px;    /* desktop default */
+  z-index: 1300;
+  max-height: 600px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 900px) {
+  .search-bar-container { left: 50%; transform: translateX(-50%); width: 92%; }
+  .sidebar { left: 10px; width: 280px; }
+  .sidebar-collapsed { width: 40px; left: 10px; }
+  .report-button { width: 72px; height: 72px; }
+}
+
+@media (max-width: 600px) {
+  .search-bar-container { top: 8px; width: 95%; left: 50%; transform: translateX(-50%); }
+  .sidebar { left: 8px; width: 92%; max-width: 360px; }
+  .sidebar-collapsed { width: 35px; left: 8px; }
+  .report-button { width: 64px; height: 64px; bottom: 16px; }
+}
+
+.search-bar-input:focus {
+  border-color: #6186ff;
+  box-shadow: 0 2px 6px rgba(97,134,255,0.4);
+}
+
+.clear-search-button {
+  position: absolute;           
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: #888;
+  z-index: 1400;                /* above the input */
+}
+
+.clear-search-button:hover {
+  color: #333;
+}
+
+.report-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84px;
+  height: 84px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent-yellow);
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(255,68,0, 0.7);
+  animation: pulse 1s infinite;
+  z-index: 1400;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255,68,0, 0.7); }
+  70%  { box-shadow: 0 0 0 16px rgba(255,68,0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,68,0, 0); }
+}
+
+/* Keyframes */
+@keyframes fadeInSlide {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes dropdownAnim {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

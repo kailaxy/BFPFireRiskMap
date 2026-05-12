@@ -1,0 +1,29 @@
+.modal-portal { position: fixed; inset: 0; z-index: 3000; display: flex; align-items: center; justify-content: center; }
+.modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+.modal-wrap { position: relative; z-index: 3010; width: 560px; max-width: calc(100% - 32px); }
+.modal-content { background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 12px 40px rgba(2,6,23,0.4); max-height: calc(100vh - 80px); overflow: auto; z-index:3020; }
+.modal-header { display:flex; align-items:center; justify-content:space-between; }
+.modal-title { margin: 0; font-size: 18px; }
+.modal-close { background: transparent; border: none; font-size: 18px; cursor: pointer; color: #374151; }
+.modal-close:hover { color: #111827; }
+.modal-body { margin-top: 12px; }
+
+/* Form controls inside modal */
+.modal-body input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not([type=file]), .modal-body textarea, .modal-body select {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px 12px;
+	border-radius: 8px;
+	border: 1px solid #e6e9ee;
+	background: #fbfdff;
+	font-size: 14px;
+	color: #0f172a;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+}
+.modal-body textarea { min-height: 100px; resize:vertical; }
+.modal-body label { display:block; font-weight:600; margin-bottom:6px; color:#0f172a; }
+.modal-body .form-row { margin-bottom:10px; }
+.modal-body .form-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:12px; }
+.modal-body .form-error { color: #b91c1c; }
+.modal-close { background: transparent; border: none; font-size: 18px; cursor: pointer; }
+.modal-body input:focus, .modal-body textarea:focus, .modal-body select:focus { outline: 2px solid rgba(96,165,250,0.22); border-color:#60a5fa; }

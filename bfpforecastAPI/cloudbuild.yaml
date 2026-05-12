@@ -1,0 +1,46 @@
+# Cloud Build configuration to build and push the container image to Artifact Registry.
+# You can create a trigger in Google Cloud Console that uses this file.
+# Set substitutions when creating the trigger: _REGION, _REPO, _IMAGE
+# Example: _REGION=asia-southeast1, _REPO=forecast-service, _IMAGE=forecast-microservice
+
+substitutions:
+  _REGION: asia-southeast1
+  _REPO: forecast-service
+  _IMAGE: forecast-microservice
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    id: Build image
+    args:
+      [
+        "build",
+        "-f",
+        "Dockerfile",
+        "-t",
+        "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$SHORT_SHA",
+        ".",
+      ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: Tag latest
+    args:
+      [
+        "tag",
+        "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$SHORT_SHA",
+        "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:latest",
+      ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: Push image
+    args: ["push", "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$SHORT_SHA"]
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: Push latest tag
+    args: ["push", "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:latest"]
+
+images:
+  - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:$SHORT_SHA"
+  - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE:latest"

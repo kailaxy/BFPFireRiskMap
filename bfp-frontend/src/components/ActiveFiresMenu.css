@@ -1,0 +1,242 @@
+.active-fires-menu {
+  position: absolute;
+  bottom: 35px;
+  left: 75%;
+  transform: translateX(-50%);
+  width: 420px;           /* Increased width */
+  font-weight: bold;
+  color: black  ;
+  z-index: 900;
+}
+
+.afm-header {
+  width: 100%;
+  background: var(--accent-yellow);
+  border: 1px solid #888;
+  padding: 8px;
+  cursor: pointer;
+  text-align: left;
+  color: black;
+}
+
+/* Hide full text on mobile, show only in desktop */
+.afm-header-desktop-text {
+  display: inline;
+}
+
+.afm-header-mobile-number {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .afm-header-desktop-text {
+    display: none;
+  }
+  
+  .afm-header-mobile-number {
+    display: inline;
+  }
+}
+
+.afm-list {
+  background: white;
+  border: 1px solid #888;
+  border-top: none;
+  max-height: 480px;      /* reasonable max height */
+  overflow-y: auto;
+  padding: 8px 0;         /* More vertical padding */
+}
+
+.afm-item {
+  padding: 10px 16px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  background: white;
+}
+
+.afm-item.selected {
+  background: #B4B4B4;
+}
+
+.afm-form-trigger {
+  padding: 8px;
+  text-align: center;
+}
+
+.afm-form-trigger button {
+  padding: 6px 12px;
+  cursor: pointer;
+  background: #f54545;
+  color: white;
+  border: none;
+  
+}
+
+.afm-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.afm-info-btn {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-yellow, #facc15);
+  color: #0b1220;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.16);
+}
+.afm-info-btn svg { width: 28px; height: 28px; color: #0b1220; }
+.afm-info-icon { display: block; }
+.afm-info-btn:focus { outline: 2px solid rgba(11,18,32,0.16); }
+/* Explicitly set SVG fills/strokes for the info button so it remains visible
+   even if there are broader rules (e.g. fill:none or stroke:currentColor)
+   elsewhere in the app CSS. Using !important is intentional to override
+   global theming rules and ensure contrast on the yellow button. */
+.afm-info-btn svg circle {
+  fill: #0b1220 !important; /* dark circle background */
+  stroke: none !important;
+}
+.afm-info-btn svg path {
+  fill: #ffffff !important; /* white inner details */
+  stroke: none !important;
+}
+/* Some global rules set svg elements to use stroke/currentColor; ensure the
+   info button's SVG does not get overridden and remains interactable. */
+.afm-info-btn, .afm-info-btn * {
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.afm-info-btn svg { z-index: 2; display: block; }
+
+.afm-direction-btn {
+  font-size: 12px;
+  padding: 2px 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.afm-alarm-btn {
+  font-size: 12px;
+  padding: 2px 10px;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.afm-alarm-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #888;
+  z-index: 10;
+  min-width: 180px;
+  max-height: 220px;
+  overflow-y: auto;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.afm-alarm-option {
+  padding: 8px 10px;
+  cursor: pointer;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.afm-alarm-option.selected {
+  background: #eee;
+}
+
+/* Mobile responsive styles - Transform to compact square button */
+@media (max-width: 768px) {
+  .active-fires-menu {
+    position: absolute;
+    bottom: 20px;
+    right: 70px;
+    left: auto;
+    transform: none;
+    width: auto;
+    z-index: 2000;
+  }
+
+  .afm-header {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    background: var(--accent-yellow);
+    border: 1px solid #888;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .afm-list {
+    position: absolute;
+    bottom: 55px;
+    right: 0;
+    width: min(320px, 90vw);
+    max-height: 300px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 2000;
+  }
+
+  .afm-item {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .afm-actions {
+    gap: 6px;
+  }
+
+  .afm-info-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .afm-header {
+    width: 45px;
+    height: 45px;
+    font-size: 14px;
+  }
+
+  .afm-list {
+    width: min(280px, 95vw);
+    bottom: 50px;
+  }
+
+  .afm-item {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .afm-info-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+}

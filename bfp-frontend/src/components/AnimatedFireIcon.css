@@ -1,0 +1,197 @@
+/* Animated Fire Icon Styles */
+.animated-fire-icon {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.fire-base {
+  position: relative;
+  font-size: 1.5em;
+  z-index: 2;
+  animation: 
+    fireFlicker 0.8s ease-in-out infinite alternate,
+    firePulse 2s ease-in-out infinite,
+    fireBob 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 3px rgba(255, 69, 0, 0.8));
+}
+
+.fire-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 69, 0, 0.4) 0%,
+    rgba(255, 140, 0, 0.3) 30%,
+    rgba(255, 69, 0, 0.2) 60%,
+    transparent 80%
+  );
+  border-radius: 50%;
+  z-index: 1;
+  animation: 
+    glowPulse 1.2s ease-in-out infinite,
+    glowRotate 3s linear infinite;
+}
+
+/* Flickering animation - simulates fire movement */
+@keyframes fireFlicker {
+  0% { 
+    transform: scale(1) rotate(-1deg);
+    filter: drop-shadow(0 0 3px rgba(255, 69, 0, 0.8)) hue-rotate(0deg);
+  }
+  25% { 
+    transform: scale(1.05) rotate(1deg);
+    filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.9)) hue-rotate(5deg);
+  }
+  50% { 
+    transform: scale(0.98) rotate(-0.5deg);
+    filter: drop-shadow(0 0 4px rgba(255, 69, 0, 0.7)) hue-rotate(-3deg);
+  }
+  75% { 
+    transform: scale(1.03) rotate(0.8deg);
+    filter: drop-shadow(0 0 6px rgba(255, 69, 0, 1)) hue-rotate(8deg);
+  }
+  100% { 
+    transform: scale(1.01) rotate(-0.3deg);
+    filter: drop-shadow(0 0 4px rgba(255, 69, 0, 0.8)) hue-rotate(2deg);
+  }
+}
+
+/* Breathing/pulsing effect */
+@keyframes firePulse {
+  0% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.08);
+    opacity: 0.9;
+  }
+  100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Subtle bobbing motion */
+@keyframes fireBob {
+  0% { 
+    transform: translateY(0px);
+  }
+  50% { 
+    transform: translateY(-2px);
+  }
+  100% { 
+    transform: translateY(0px);
+  }
+}
+
+/* Glow pulsing animation */
+@keyframes glowPulse {
+  0% { 
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% { 
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Rotating glow effect */
+@keyframes glowRotate {
+  0% { 
+    background: radial-gradient(
+      circle,
+      rgba(255, 69, 0, 0.4) 0%,
+      rgba(255, 140, 0, 0.3) 30%,
+      rgba(255, 69, 0, 0.2) 60%,
+      transparent 80%
+    );
+  }
+  33% { 
+    background: radial-gradient(
+      circle,
+      rgba(255, 140, 0, 0.4) 0%,
+      rgba(255, 200, 0, 0.3) 30%,
+      rgba(255, 140, 0, 0.2) 60%,
+      transparent 80%
+    );
+  }
+  66% { 
+    background: radial-gradient(
+      circle,
+      rgba(255, 100, 0, 0.4) 0%,
+      rgba(255, 69, 0, 0.3) 30%,
+      rgba(255, 100, 0, 0.2) 60%,
+      transparent 80%
+    );
+  }
+  100% { 
+    background: radial-gradient(
+      circle,
+      rgba(255, 69, 0, 0.4) 0%,
+      rgba(255, 140, 0, 0.3) 30%,
+      rgba(255, 69, 0, 0.2) 60%,
+      transparent 80%
+    );
+  }
+}
+
+/* Hover effects for extra emphasis */
+.animated-fire-icon:hover .fire-base {
+  animation-duration: 0.4s, 1s, 0.8s;
+  filter: drop-shadow(0 0 8px rgba(255, 69, 0, 1));
+}
+
+.animated-fire-icon:hover .fire-glow {
+  animation-duration: 0.6s, 1.5s;
+  opacity: 1.2;
+}
+
+/* High urgency variant - faster animations */
+.animated-fire-icon.urgent .fire-base {
+  animation-duration: 0.4s, 1s, 0.8s;
+  filter: drop-shadow(0 0 6px rgba(255, 0, 0, 1));
+}
+
+.animated-fire-icon.urgent .fire-glow {
+  animation-duration: 0.6s, 1.5s;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 0, 0.5) 0%,
+    rgba(255, 69, 0, 0.4) 30%,
+    rgba(255, 0, 0, 0.3) 60%,
+    transparent 80%
+  );
+}
+
+/* Different alarm levels can have different animation speeds */
+.animated-fire-icon.first-alarm .fire-base {
+  animation-duration: 0.8s, 2s, 1.5s;
+}
+
+.animated-fire-icon.second-alarm .fire-base {
+  animation-duration: 0.6s, 1.5s, 1.2s;
+}
+
+.animated-fire-icon.third-alarm .fire-base {
+  animation-duration: 0.5s, 1.2s, 1s;
+}
+
+.animated-fire-icon.general-alarm .fire-base {
+  animation-duration: 0.3s, 0.8s, 0.6s;
+}
+
+.animated-fire-icon.general-alarm .fire-glow {
+  animation-duration: 0.4s, 1s;
+}

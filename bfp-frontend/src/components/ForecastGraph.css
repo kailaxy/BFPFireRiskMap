@@ -1,0 +1,313 @@
+/* ForecastGraph Modal Overlay */
+.forecast-graph-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Content */
+.graph-modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal Header */
+.graph-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px;
+  border-bottom: 2px solid #e5e7eb;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px 12px 0 0;
+  color: white;
+}
+
+.graph-modal-header .header-left h2 {
+  margin: 0 0 4px 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.graph-modal-header .barangay-name {
+  margin: 0;
+  font-size: 16px;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 28px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Metadata Section */
+.graph-metadata {
+  display: flex;
+  gap: 24px;
+  padding: 20px 28px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+}
+
+.metadata-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metadata-item .label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metadata-item .value {
+  font-size: 18px;
+  color: #111827;
+  font-weight: 700;
+}
+
+/* Graph Container */
+.graph-container {
+  padding: 28px;
+  height: 500px;
+  background: white;
+}
+
+/* Legend Info Section */
+.graph-legend-info {
+  padding: 20px 28px 28px;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 12px 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.legend-item:last-child {
+  margin-bottom: 0;
+}
+
+.legend-color {
+  width: 32px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.legend-label {
+  font-weight: 500;
+}
+
+/* Loading State */
+.graph-loading {
+  padding: 80px 28px;
+  text-align: center;
+}
+
+.graph-loading .spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.graph-loading p {
+  color: #6b7280;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Error State */
+.graph-error {
+  padding: 80px 28px;
+  text-align: center;
+}
+
+.graph-error p {
+  color: #dc2626;
+  font-size: 16px;
+  margin: 0 0 20px 0;
+}
+
+.btn-retry {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-retry:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .graph-modal-content {
+    max-width: 95%;
+  }
+
+  .graph-container {
+    height: 400px;
+  }
+
+  .graph-modal-header .header-left h2 {
+    font-size: 20px;
+  }
+
+  .graph-modal-header .barangay-name {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .forecast-graph-modal {
+    padding: 10px;
+  }
+
+  .graph-modal-content {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+
+  .graph-modal-header {
+    padding: 16px 20px;
+  }
+
+  .graph-modal-header .header-left h2 {
+    font-size: 18px;
+  }
+
+  .graph-modal-header .barangay-name {
+    font-size: 13px;
+  }
+
+  .close-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+  }
+
+  .graph-metadata {
+    padding: 16px 20px;
+    gap: 16px;
+  }
+
+  .metadata-item .value {
+    font-size: 16px;
+  }
+
+  .graph-container {
+    height: 350px;
+    padding: 20px;
+  }
+
+  .graph-legend-info {
+    padding: 16px 20px 20px;
+  }
+
+  .legend-item {
+    font-size: 13px;
+    gap: 10px;
+  }
+
+  .legend-color {
+    width: 28px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .graph-container {
+    height: 300px;
+    padding: 16px;
+  }
+
+  .graph-metadata {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .legend-item {
+    font-size: 12px;
+  }
+}

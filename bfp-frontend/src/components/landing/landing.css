@@ -1,0 +1,197 @@
+/* Minimal landing header/footer styles adapted from landing/main.css */
+:root { --landing-footer-height: 48px; --landing-header-height: 64px; }
+.landing-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background: var(--brand-dark);
+  color: var(--app-text);
+  padding: 12px 20px;
+  position: relative;
+  z-index: 1400; /* place header above admin sidebar on mobile */
+}
+/* Minimal landing header/footer styles adapted from landing/main.css */
+:root { --landing-footer-height: 48px; --landing-header-height: 64px; }
+.landing-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background: var(--brand-dark);
+  color: var(--app-text);
+  padding: 12px 20px;
+}
+.landing-header .brand { display:flex; align-items:center; gap:12px; }
+.landing-header .brand img { height:36px; width:36px; object-fit:cover; }
+.landing-header .brand .brand-logo { border-radius: 50%; height:36px; width:36px; display:block; }
+.landing-header .brand .brand-text { display:flex; flex-direction:column; }
+.landing-header .brand,
+.landing-header .brand a {
+  color: inherit; /* ensure links inside the brand inherit header color */
+  text-decoration: none;
+}
+.landing-nav { display:flex; gap:16px; align-items:center; }
+.landing-nav a { color: var(--app-text); text-decoration:none; font-weight:600; }
+.landing-nav a:hover { color: var(--accent-yellow); }
+
+/* Landing-specific hamburger (defaults hidden) */
+.landing-header .hamburger { display: none; background: transparent; border: none; padding: 6px; margin-right: 8px; cursor: pointer; }
+.landing-header .hamburger .hamburger-box { width: 28px; height: 18px; display: inline-block; position: relative; }
+.landing-header .hamburger .hamburger-inner,
+.landing-header .hamburger .hamburger-inner:before,
+.landing-header .hamburger .hamburger-inner:after {
+  width: 28px; height: 3px; background-color: var(--app-text); border-radius: 2px; position: absolute; transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.landing-header .hamburger .hamburger-inner { top: 50%; transform: translateY(-50%); left: 0; }
+.landing-header .hamburger .hamburger-inner:before { content: ''; top: -8px; left: 0; }
+.landing-header .hamburger .hamburger-inner:after { content: ''; top: 8px; left: 0; }
+.landing-header .hamburger[data-force], .landing-header .hamburger.open { display: inline-block; }
+
+/* Mobile overlay menu used by LandingHeader */
+.mobile-menu { display: none; }
+.mobile-menu.open { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1500; }
+.mobile-menu-inner { position: absolute; top: 0; left: 0; width: 260px; max-width: 80%; height: 100%; background: var(--brand-light); color: var(--brand-darker); padding: 20px; box-shadow: 2px 0 12px rgba(0,0,0,0.28); transform: translateX(-8px); animation: slideIn 220ms ease forwards; }
+.mobile-menu-inner a { display: block; padding: 10px 6px; color: inherit; text-decoration: none; font-weight: 600; }
+.mobile-close { position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 20px; cursor: pointer; color: var(--brand-darker); }
+
+.landing-hero {
+  padding: 72px 20px;
+  color: var(--app-text);
+  text-align: center;
+    /* make the hero fill the viewport minus the footer so there's no gap when footer height changes */
+    min-height: calc(100vh - var(--landing-footer-height, 56px));
+  /* dark overlay on top of the static landing image */
+    background-image: linear-gradient(rgba(28,27,34,0.6), rgba(28,27,34,0.6)), url('./images/v69_250.png');
+  background-blend-mode: overlay;
+  background-position: center center; /* center image to keep focal point when hero height changes */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.landing-hero h1 { font-family: 'Anton', sans-serif; font-size: 2.8rem; margin: 0 0 8px 0; color: var(--accent-yellow); }
+.landing-hero p { max-width: 920px; margin: 0 auto; color: rgba(255,255,255,0.95); }
+
+/* (reverted) */
+.explore-btn { background: var(--accent-yellow); border: none; padding: 12px 24px; border-radius: 8px; font-weight:700; cursor:pointer; color: #111; }
+.explore-btn:hover { filter: brightness(0.95); }
+
+.landing-preview { margin-top: 24px; display:flex; justify-content:center; }
+.preview-box { width: 760px; max-width: 92%; height: 260px; max-height: 48vh; background: rgba(255,255,255,0.95); border-radius:6px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.preview-box img { width:100%; height:100%; object-fit:cover; display:block; }
+
+
+.landing-footer {
+  background: var(--brand-dark);
+  color: var(--app-text);
+  padding: 10px 12px; /* add top padding so content breathes */
+  text-align: center;
+  font-size: 13px;
+  height: auto;
+  min-height: 48px; /* smaller baseline height */
+  position: relative;
+  /* allow the preview/map to stack above the footer so the footer doesn't visually cover content */
+  z-index: 1400; /* place footer above admin sidebar on mobile */
+  flex-shrink: 0;
+}
+
+/* inner container stays centered but does NOT act as the positioning context */
+.landing-footer .footer-inner {
+  /* Use full width container so left/right blocks align to page edges
+     while keeping a small horizontal padding for breathing room. */
+  max-width: none;
+  width: 100%;
+  padding: 0 12px;
+  box-sizing: border-box;
+  height: 100%;
+  position: relative; /* use normal flow so footer sits after hero */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Prevent main content from overlapping the footer by reserving the footer height */
+.content-wrapper { padding-bottom: 1px; }
+.preview-box { margin-bottom: 0; }
+
+/* anchor groups to the bottom corners */
+.landing-footer .footer-left,
+.landing-footer .footer-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.landing-footer .footer-left { order: 1; }
+.landing-footer .footer-right { order: 2; text-align: right; max-width: 40%; flex-direction: column; align-items: flex-end; }
+
+/* Reduce vertical spacing between stacked lines in the right block */
+.landing-footer .footer-right { gap: 4px; }
+.landing-footer .footer-right > * { margin: 0; line-height: 1.15; }
+
+.landing-footer img { height: 36px; width: auto; display: block; }
+
+.landing-footer a { color: var(--accent-yellow); text-decoration: none; }
+
+/* Responsive: stack footer content on narrow screens */
+@media (max-width: 600px) {
+  .landing-footer { height: auto; padding: 12px 14px; }
+  .landing-footer .footer-inner {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  /* Stack footer contents vertically and center them on small screens */
+  .landing-footer .footer-left { order: 1; }
+  .landing-footer .footer-right { order: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .landing-footer .fr-name { font-weight: 700; }
+  .landing-footer .fr-email { font-size: 12px; }
+  .landing-footer .fr-social a { color: var(--accent-yellow); text-decoration: none; }
+  /* full opaque footer on mobile for legibility */
+  .landing-footer { background: var(--brand-dark); }
+  /* increase icon size for touch */
+  .landing-footer img { height: 48px; }
+  /* add safe area padding for devices with bottom insets */
+  .landing-footer { padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+  .landing-footer .footer-left, .landing-footer .footer-right { justify-content: center; text-align: center; }
+  /* show hamburger and hide desktop nav on mobile */
+  .landing-header .hamburger { display: inline-block; }
+  .landing-header .landing-nav { display: none; }
+  /* removed conflicting row layout so footer remains stacked on mobile */
+  /* make hero padding smaller on mobile so header/footer fit comfortably */
+  .landing-hero { padding: 36px 14px; }
+  .landing-hero h1 { font-size: 2.2rem; }
+  .preview-box { height: 200px; max-height: 36vh; }
+}
+
+/* Login page styling (uses landing background) */
+.login-page {
+  min-height: calc(100vh - var(--landing-header-height, 64px) - var(--landing-footer-height, 48px));
+  background-image: linear-gradient(rgba(28,27,34,0.6), rgba(28,27,34,0.6)), url('./images/v69_250.png');
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 12px;
+}
+.login-form {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.98);
+  color: var(--text-dark);
+  padding: 28px;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+}
+.login-title { margin: 0 0 12px 0; color: var(--brand-dark); font-size: 1.4rem; }
+.login-field { margin-bottom: 12px; }
+.login-field label { display:block; margin-bottom:6px; color: var(--brand-dark); font-weight:600; }
+.login-field input { width:100%; padding:10px 12px; border-radius:6px; border:1px solid var(--control-border); }
+.login-error { color: #d23a3a; margin-bottom: 12px; }
+.login-submit { width:100%; padding:10px 12px; background: var(--accent-yellow); color: #111; border: none; border-radius:6px; font-weight:700; }
+
+@media (max-width:480px) {
+  .login-form { padding: 18px; }
+  .login-title { font-size: 1.2rem; }
+  .login-form { transform: none; }
+}
